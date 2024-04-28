@@ -18,7 +18,16 @@ const fetchDatafromDB = async () => {
 };
 
 const Page = () => {
-  let data = fetchDatafromDB()
+  let data;
+
+  if (process.env.DB_URL) {
+    // If DB_URL is provided, use it to connect
+    console.log("Using DB_URL to connect to the database.");
+    data = fetchDatafromDB(process.env.DB_URL);
+  } else {
+    // Otherwise, fallback to the local database configuration
+    console.log("DB_URL not found");
+  }
 
   return (
     <div>
@@ -36,8 +45,8 @@ const Page = () => {
   );
 };
 
-
 export default Page;
+
 
 
 
